@@ -1,4 +1,4 @@
-package springcourse;
+package ru.fadeev.springcourse;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class HelloController {
 
-    @GetMapping("/hello")
+    @GetMapping("/hello-world")
     public String sayHello(){
-        return "hello";
+        return "hello_world";
     }
 }
