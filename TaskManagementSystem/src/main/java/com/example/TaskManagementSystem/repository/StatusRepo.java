@@ -1,4 +1,7 @@
 package com.example.TaskManagementSystem.repository;
 
-public interface StatusRepo {
+import com.example.TaskManagementSystem.entity.StatusEntity;
+import org.springframework.data.repository.CrudRepository;
+
+public interface StatusRepo extends CrudRepository<StatusEntity, Integer> {
 }

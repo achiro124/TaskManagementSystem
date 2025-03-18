@@ -1,8 +1,7 @@
 package com.example.TaskManagementSystem.dtos;
 
 import com.example.TaskManagementSystem.entity.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -10,40 +9,46 @@ import java.util.List;
 
 @Data
 @AllArgsConstructor
-public class TodoDto {
+@Schema(description = "DTO for representing a task")
+public class TodoResponseDto {
 
+    @Schema(description = "Unique identifier of the task", example = "1")
     private Long id;
-    @NotBlank(message = "Название задачи не должно быть пустым")
+
+    @Schema(description = "Task title", example = "Complete the project")
     private String title;
-    @NotBlank(message = "Описание задачи не должно быть пустым")
+
+    @Schema(description = "Task description", example = "Need to complete the project by the end of the week")
     private String description;
 
-    @NotNull(message = "Статус задачи не должен быть пустым")
-    private Integer statusId;
-    @NotNull(message = "Приоритет задачи не должен быть пустым")
-    private Integer priorityId;
+    @Schema(description = "Task status", example = "IN_WAITING")
+    private String status;
 
-    @NotNull(message = "Автор задачи не должно быть пустым")
-    private Long authorId;
-    @NotNull(message = "Ответственный задачи не должен быть пустым")
-    private Long assigneeId;
+    @Schema(description = "Task priority", example = "HIGH")
+    private String priority;
+
+    @Schema(description = "Email of the task author", example = "author@mail.ru")
+    private String authorEmail;
+
+    @Schema(description = "Email of the task assignee", example = "assignee@mail.ru")
+    private String assigneeEmail;
+
+    @Schema(description = "List of comments for the task")
     private List<CommentDto> comments;
 
-    public TodoDto() {}
+    public TodoResponseDto() {}
 
-    public static TodoDto toModel(TodoEntity todoEntity){
-
-        TodoDto todo = new TodoDto();
+    public static TodoResponseDto toModel(TodoEntity todoEntity) {
+        TodoResponseDto todo = new TodoResponseDto();
         todo.setId(todoEntity.getId());
         todo.setTitle(todoEntity.getTitle());
         todo.setDescription(todoEntity.getDescription());
-        todo.setStatusId(todoEntity.getStatus().getId());
-        todo.setPriorityId(todoEntity.getPriority().getId());
-        todo.setAuthorId(todoEntity.getAuthor().getId());
-        todo.setAssigneeId(todoEntity.getAssignee().getId());
+        todo.setStatus(todoEntity.getStatus().getName());
+        todo.setPriority(todoEntity.getPriority().getName());
+        todo.setAuthorEmail(todoEntity.getAuthor().getEmail());
+        todo.setAssigneeEmail(todoEntity.getAssignee().getEmail());
         todo.setComments(todoEntity.getComments().stream().map(CommentDto::toModel).toList());
 
         return todo;
     }
-
 }

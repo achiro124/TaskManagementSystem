@@ -1,4 +1,7 @@
 package com.example.TaskManagementSystem.repository;
 
-public interface commentRepo {
+import com.example.TaskManagementSystem.entity.CommentEntity;
+import org.springframework.data.repository.CrudRepository;
+
+public interface CommentRepo extends CrudRepository<CommentEntity, Long> {
 }
